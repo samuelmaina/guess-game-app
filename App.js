@@ -28,6 +28,11 @@ export default function App() {
       { key: Math.random().toString() + enteredGoal, value: enteredGoal },
     ]);
   };
+
+  const clearAllGoalsHandler = () => {
+    //use the arrow function to always ensure that  the current state is updated
+    setCourseGoals((currentState) => []);
+  };
   return (
     <View style={styles.screen}>
       <View style={styles.inputContainer}>
@@ -40,6 +45,8 @@ export default function App() {
         />
         <Button title="Add" onPress={addGoalHandler} />
       </View>
+
+      <Button title="Clear all Goals" onPress={clearAllGoalsHandler} />
       {/* the view Component is not scrollable hence there is need to set
       scrollable view */}
       {/* scroll view is quite inefficient since it renders Components that are not
