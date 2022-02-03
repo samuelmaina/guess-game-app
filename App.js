@@ -2,14 +2,37 @@ import { useState } from "react";
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 
 export default function App() {
-  const [outputText, setOutputText] = useState("Open up App.js");
+  const [enteredGoal, setEnteredGoal] = useState("");
+
+  const [courseGoals, setCourseGoals] = useState([]);
+
+  //due to this binding, use arrow function
+
+  const goalInputHandler = (enteredGoal) => {
+    setEnteredGoal(enteredGoal);
+  };
+
+  const addGoalHandler = () => {
+    //use the arrow function to always ensure that  the current state is updated
+    setCourseGoals((currentState) => [...currentState, enteredGoal]);
+  };
   return (
     <View style={styles.screen}>
       <View style={styles.inputContainer}>
-        <TextInput placeholder="Course Goals" style={styles.input} />
-        <Button title="Add" />
+        <TextInput
+          placeholder="Course Goals"
+          style={styles.input}
+          //used to handle each key stroke that the user typers.
+          onChangeText={goalInputHandler}
+          value={enteredGoal}
+        />
+        <Button title="Add" onPress={addGoalHandler} />
       </View>
-      <View></View>
+      <View>
+        {courseGoals.map((goal) => {
+          return <Text>{goal}</Text>;
+        })}
+      </View>
     </View>
   );
 }
